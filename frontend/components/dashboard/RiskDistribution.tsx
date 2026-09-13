@@ -1,0 +1,164 @@
+"use client";
+
+import dynamic from "next/dynamic";
+
+const Plot = dynamic(() => import("react-plotly.js"), {
+  ssr: false,
+});
+
+export default function RiskDistribution() {
+  return (
+    <div className="risk-chart-card">
+      {/* Header */}
+      <div className="risk-chart-header">
+        <div>
+          <h2>Risk Distribution</h2>
+
+          <p>Distribution of monitored entities by risk level.</p>
+        </div>
+      </div>
+
+      {/* Chart */}
+      <div className="risk-chart">
+        <Plot
+          data={[
+            {
+              type: "pie",
+
+              labels: ["Low Risk", "Medium Risk", "High Risk"],
+
+              values: [68, 24, 8],
+
+              hole: 0.68,
+
+              sort: false,
+
+              textinfo: "percent",
+
+              textposition: "inside",
+
+              textfont: {
+                color: "#e2e8f0",
+                size: 11,
+              },
+
+              marker: {
+                line: {
+                  color: "#0b1728",
+                  width: 3,
+                },
+              },
+
+              hovertemplate:
+                "<b>%{label}</b><br>" +
+                "%{value}% of entities" +
+                "<extra></extra>",
+            },
+          ]}
+          layout={{
+            autosize: true,
+
+            height: 245,
+
+            margin: {
+              l: 20,
+              r: 20,
+              t: 10,
+              b: 10,
+            },
+
+            paper_bgcolor: "rgba(0,0,0,0)",
+
+            plot_bgcolor: "rgba(0,0,0,0)",
+
+            showlegend: true,
+
+            legend: {
+              orientation: "h",
+
+              x: 0.5,
+
+              y: -0.05,
+
+              xanchor: "center",
+
+              yanchor: "top",
+
+              font: {
+                color: "#718198",
+                size: 9,
+              },
+
+              bgcolor: "rgba(0,0,0,0)",
+            },
+
+            annotations: [
+              {
+                text: "<b>423</b>",
+
+                x: 0.5,
+
+                y: 0.52,
+
+                xref: "paper",
+
+                yref: "paper",
+
+                showarrow: false,
+
+                font: {
+                  color: "#f8fafc",
+
+                  size: 23,
+                },
+              },
+
+              {
+                text: "Entities",
+
+                x: 0.5,
+
+                y: 0.39,
+
+                xref: "paper",
+
+                yref: "paper",
+
+                showarrow: false,
+
+                font: {
+                  color: "#53647a",
+
+                  size: 9,
+                },
+              },
+            ],
+
+            hoverlabel: {
+              bgcolor: "#0c1729",
+
+              bordercolor: "#334155",
+
+              font: {
+                color: "#e2e8f0",
+
+                size: 10,
+              },
+            },
+          }}
+          config={{
+            responsive: true,
+
+            displayModeBar: false,
+
+            displaylogo: false,
+          }}
+          style={{
+            width: "100%",
+            height: "245px",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
